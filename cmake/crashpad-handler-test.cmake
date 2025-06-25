@@ -9,7 +9,7 @@ set_target_properties(crashpad_handler_test_extended_handler PROPERTIES
 )
 
 target_sources(crashpad_handler_test_extended_handler PRIVATE
-    ${crashpad_git_SOURCE_DIR}/handler/crashpad_handler_test_extended_handler.cc
+    ${CRASHPAD_SRC_DIR}/handler/crashpad_handler_test_extended_handler.cc
 )
 
 target_link_libraries(crashpad_handler_test_extended_handler PRIVATE
@@ -33,7 +33,7 @@ target_link_libraries(crashpad_handler_test_extended_handler PRIVATE
 crashpad_add_test(crashpad_handler_test)
 
 target_sources(crashpad_handler_test PRIVATE
-    ${crashpad_git_SOURCE_DIR}/handler/minidump_to_upload_parameters_test.cc
+    ${CRASHPAD_SRC_DIR}/handler/minidump_to_upload_parameters_test.cc
 )
 
 target_link_libraries(crashpad_handler_test PRIVATE

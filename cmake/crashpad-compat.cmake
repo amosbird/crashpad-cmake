@@ -18,55 +18,42 @@ endif()
 
 if(WIN32)
     target_sources(crashpad_compat PRIVATE
-        ${crashpad_git_SOURCE_DIR}/compat/win/strings.cc
-        ${crashpad_git_SOURCE_DIR}/compat/win/time.cc
-        ${crashpad_git_SOURCE_DIR}/third_party/getopt/getopt.cc
+        ${CRASHPAD_SRC_DIR}/compat/win/strings.cc
+        ${CRASHPAD_SRC_DIR}/compat/win/time.cc
+        ${CRASHPAD_SRC_DIR}/third_party/getopt/getopt.cc
     )
 
-    target_include_directories(crashpad_compat PUBLIC
-        ${crashpad_git_SOURCE_DIR}/compat/win
-        ${crashpad_git_SOURCE_DIR}/third_party/getopt
+    target_include_directories(crashpad_compat SYSTEM PUBLIC
+        ${CRASHPAD_SRC_DIR}/compat/win
+        ${CRASHPAD_SRC_DIR}/third_party/getopt
     )
 else()
-    target_include_directories(crashpad_compat INTERFACE
-        ${crashpad_git_SOURCE_DIR}/compat/non_win
+    target_include_directories(crashpad_compat SYSTEM INTERFACE
+        ${CRASHPAD_SRC_DIR}/compat/non_win
     )
 endif()
 
 # Linux mostly.
 if(UNIX AND NOT APPLE)
     target_sources(crashpad_compat PRIVATE
-        ${crashpad_git_SOURCE_DIR}/compat/linux/sys/mman_memfd_create.cc
+        ${CRASHPAD_SRC_DIR}/compat/linux/sys/mman_memfd_create.cc
     )
 
-    target_include_directories(crashpad_compat PUBLIC
-        ${crashpad_git_SOURCE_DIR}/compat/linux
+    target_include_directories(crashpad_compat SYSTEM PUBLIC
+        ${CRASHPAD_SRC_DIR}/compat/linux
     )
 else()
-    target_include_directories(crashpad_compat INTERFACE
-        ${crashpad_git_SOURCE_DIR}/compat/non_elf
+    target_include_directories(crashpad_compat SYSTEM INTERFACE
+        ${CRASHPAD_SRC_DIR}/compat/non_elf
     )
 endif()
 
 if(APPLE)
-    target_include_directories(crashpad_compat INTERFACE
-        ${crashpad_git_SOURCE_DIR}/compat/mac
+    target_include_directories(crashpad_compat SYSTEM INTERFACE
+        ${CRASHPAD_SRC_DIR}/compat/mac
     )
 else()
-    target_include_directories(crashpad_compat PUBLIC
-        ${crashpad_git_SOURCE_DIR}/compat/non_mac
-    )
-endif()
-
-if(ANDROID)
-    target_sources(crashpad_compat PRIVATE
-        ${crashpad_git_SOURCE_DIR}/compat/android/android/api-level.cc
-        ${crashpad_git_SOURCE_DIR}/compat/android/dlfcn_internal.cc
-        ${crashpad_git_SOURCE_DIR}/compat/android/sys/epoll.cc
-        ${crashpad_git_SOURCE_DIR}/compat/android/sys/mman.cc
-    )
-
-    target_include_directories(crashpad_compat PUBLIC
-        ${crashpad_git_SOURCE_DIR}/compat/android
+    target_include_directories(crashpad_compat SYSTEM PUBLIC
+        ${CRASHPAD_SRC_DIR}/compat/non_mac
     )
 endif()

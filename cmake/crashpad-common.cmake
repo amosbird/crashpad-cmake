@@ -8,7 +8,7 @@ if(NOT MSVC)
         -Werror
         -Wextra
         -Wno-missing-field-initializers
-		-Wno-noexcept-type
+        -Wno-noexcept-type
         -Wno-unused-parameter
         -Wno-implicit-fallthrough
         -Wsign-compare
@@ -20,15 +20,15 @@ if(NOT MSVC)
         -fdata-sections
         -ffunction-sections
     )
-	
-	if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-		target_compile_options(crashpad_common INTERFACE
-			-Wno-attributes
-			-Wno-ignored-qualifiers
-			-Wno-stringop-truncation
-			-Wno-restrict
-		)
-	endif()
+
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        target_compile_options(crashpad_common INTERFACE
+            -Wno-attributes
+            -Wno-ignored-qualifiers
+            -Wno-stringop-truncation
+            -Wno-restrict
+        )
+    endif()
 else()
     target_compile_options(crashpad_common INTERFACE
         $<$<COMPILE_LANGUAGE:CXX>:
@@ -68,6 +68,8 @@ if(WIN32)
         PowrProf.lib
     )
 else()
+    set(THREADS_PREFER_PTHREAD_FLAG ON)
+    find_package(Threads REQUIRED)
     target_link_libraries(crashpad_common INTERFACE
       Threads::Threads
       ${CMAKE_DL_LIBS}
@@ -88,7 +90,7 @@ target_compile_definitions(crashpad_common INTERFACE
     -DCRASHPAD_LSS_SOURCE_EXTERNAL
 )
 
-target_include_directories(crashpad_common INTERFACE
-    ${crashpad_git_SOURCE_DIR}
-    ${mini_chromium_git_SOURCE_DIR}
+target_include_directories(crashpad_common SYSTEM INTERFACE
+    ${CRASHPAD_SRC_DIR}
+    ${MINI_CHROMIUM_SRC_DIR}
 )

@@ -39,7 +39,7 @@ function(target_add_mig_sources target filename)
                 ${MIG_TARGET_DIR}/${basename}${MIG_USER_HEADER_SUFFIX}
                 ${MIG_TARGET_DIR}/${basename}${MIG_SERVER_HEADER_SUFFIX}
         COMMAND ${Python2_EXECUTABLE}
-        ARGS    ${crashpad_git_SOURCE_DIR}/util/mach/mig.py
+        ARGS    ${CRASHPAD_SRC_DIR}/util/mach/mig.py
                 ${filename}
                 ${MIG_TARGET_DIR}/${basename}${MIG_USER_SOURCE_SUFFIX}
                 ${MIG_TARGET_DIR}/${basename}${MIG_SERVER_SOURCE_SUFFIX}
